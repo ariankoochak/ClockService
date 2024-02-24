@@ -62,13 +62,31 @@ async function closeTicket(ticketId){
     });
 }
 
+async function createFixingTicket(fixingTicket){
+    const db = await new mongoDBconnection().getDBtunnel("FixingTickets");
+    const result = await db.insertOne(fixingTicket);
+    return new Promise((resolve, reject) => {
+        resolve(result.acknowledged);
+    });
+}
+
+async function getClientData(id){
+    const db = await new mongoDBconnection().getDBtunnel("Customers");
+    const result = await db.findOne({_id : new ObjectId(id)});
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
     customerAuthenticator,
     getAllTickets,
     createReplyTicket,
-    closeTicket
+    closeTicket,
+    createFixingTicket,
+    getClientData,
 };
 
 module.exports = model;

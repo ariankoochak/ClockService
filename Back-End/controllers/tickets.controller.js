@@ -88,15 +88,14 @@ async function closeTicket(req, res) {
     try {
         const employeeId = req.headers.employeeid;
         const ticketId = req.headers.ticketid;
-        
+
         const result = await model.employeeAuthenticator(employeeId);
         if (result) {
-            const ticketIsChange = await model.closeTicket(ticketId)
-            if(ticketIsChange){
-                sendResult(res,201,{ message : 'ticket closed successfully'})
-            }
-            else{
-                errorHandler(res,412,"ticket-id is wrong")
+            const ticketIsChange = await model.closeTicket(ticketId);
+            if (ticketIsChange) {
+                sendResult(res, 201, { message: "ticket closed successfully" });
+            } else {
+                errorHandler(res, 412, "ticket-id is wrong");
             }
         } else {
             errorHandler(res, 401, "you are unauthorized");
@@ -106,9 +105,55 @@ async function closeTicket(req, res) {
         errorHandler(res, 500, "server error");
     }
 }
-module.exports = {
+
+async function createFixingTicket(req, res) {
+    try {
+        const employeeId = req.headers.employeeid;
+        const result = await model.employeeAuthenticator(employeeId);
+        if (result) {
+            let data = "";
+            req.on("data", (jsonDatas) => {
+                data += jsonDatas.toString();
+            });
+            req.on("end", async () => {
+                data = JSON.parse(data);
+                const {CustomerFirstName,
+                    CustomerLastName,
+                    PhoneNumber,
+                    Address,
+                } = await model.getClientData(data.customerID);;
+                const result = await model.createFixingTicket({
+                    date: Date.now(),
+                    isDone: false,
+                    ...data,
+                    clientFullName : `${CustomerFirstName} ${CustomerLastName}`,
+                    clientAddress: Address,
+                    clientPhoneNumber : PhoneNumber,
+                });
+                if (result) {
+                    sendResult(res, 201, {
+                        message: "fixing-ticket created successfully",
+                    });
+                } else {
+                    errorHandler(res, 502, "Bad Gateway");
+                }
+            });
+        }
+        else{
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
+
+const controller = {
     createTicket,
     getAllTickets,
     sendReplyTicket,
     closeTicket,
+    createFixingTicket,
 };
+
+module.exports = controller;

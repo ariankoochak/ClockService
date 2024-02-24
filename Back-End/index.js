@@ -1,21 +1,25 @@
 const http = require("http");
-const { createTicket, getAllTickets, sendReplyTicket, closeTicket } = require("./controllers/tickets.controller");
+const controller = require("./controllers/tickets.controller");
+
 const port = 3000;
 
 const server = http.createServer((req, res) => {
     const { url, method } = req;
     const apiRoute = "/tickets";
     if(apiRoute === url && method === "POST"){
-        createTicket(req,res)
+       controller.createTicket(req,res)
     }
     else if(apiRoute === url && method === "GET"){
-        getAllTickets(req,res)
+        controller.getAllTickets(req,res)
     }
     else if(`${apiRoute}/replies` === url && method === "POST"){
-        sendReplyTicket(req,res)
+        controller.sendReplyTicket(req,res)
     }
     else if(`${apiRoute}/close` === url && method === "POST"){
-        closeTicket(req,res)
+        controller.closeTicket(req,res)
+    }
+    else if(`${apiRoute}/fixing` === url && method === "POST"){
+        controller.createFixingTicket(req,res)
     }
 });
 
