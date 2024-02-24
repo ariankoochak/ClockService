@@ -1,8 +1,10 @@
-[{
-    "CustomerFirstName":"Arian",
-    "CustomerLastName" : "Koochak",
-    "CustomerUserName" : "ariankoochak",
-    "CustomerPassword" : "1234test",
-    "PhoneNumber" : "09121234567",
-    "Address" : "Tehran,35Avenue,54Plate"
-}]
+[
+    {
+        "CustomerFirstName": "Arian",
+        "CustomerLastName": "Koochak",
+        "CustomerUserName": "ariankoochak",
+        "CustomerPassword": "1234test",
+        "PhoneNumber": "09121234567",
+        "Address": "Tehran,35Avenue,54Plate"
+    }
+]
