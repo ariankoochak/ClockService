@@ -96,6 +96,19 @@ async function getAllFixingTicket() {
     });
 }
 
+async function sendFixingResult(fixingTicketId,payload){
+    const db = await new mongoDBconnection().getDBtunnel("FixingTickets");
+    let result = await db.updateOne(
+        { _id: new ObjectId(fixingTicketId) },
+        {
+            $set: payload,
+        }
+    );
+    return new Promise((resolve, reject) => {
+        resolve(Boolean(result.modifiedCount));
+    });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
@@ -107,6 +120,7 @@ const model = {
     createFixingTicket,
     getClientData,
     getAllFixingTicket,
+    sendFixingResult
 };
 
 module.exports = model;

@@ -173,6 +173,41 @@ async function getAllFixingTicket(req,res){
     }
 }
 
+async function sendFixingResult(req,res){
+    try {
+        const repairmanId = req.headers.repairmanid;
+        const result = await model.repairmanAuthenticator(repairmanId);
+        if(result){
+            let data = "";
+            req.on("data", (jsonDatas) => {
+                data += jsonDatas.toString();
+            });
+            req.on("end", async () => {
+                data = JSON.parse(data);
+                const resultBody = data.resultBody
+                const result = await model.sendFixingResult(data.fixingTicketId,{
+                    finishDate: Date.now(),
+                    isDone: true,
+                    resultBody,
+                });
+                if (result) {
+                    sendResult(res, 201, {
+                        message: "fixing result sent",
+                    });
+                } else {
+                    errorHandler(res, 502, "Bad Gateway");
+                }
+            });
+        }
+        else{
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
+
 const controller = {
     createTicket,
     getAllTickets,
@@ -180,6 +215,7 @@ const controller = {
     closeTicket,
     createFixingTicket,
     getAllFixingTicket,
+    sendFixingResult,
 };
 
 module.exports = controller;

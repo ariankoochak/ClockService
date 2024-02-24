@@ -18,6 +18,8 @@ const server = http.createServer((req, res) => {
         controller.createFixingTicket(req, res);
     } else if (`${apiRoute}/fixing` === url && method === "GET") {
         controller.getAllFixingTicket(req, res);
+    } else if (`${apiRoute}/fixing/done` === url && method === "POST") {
+        controller.sendFixingResult(req, res);
     }
 });
 
