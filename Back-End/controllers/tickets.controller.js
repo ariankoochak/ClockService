@@ -49,30 +49,32 @@ async function sendReplyTicket(req, res) {
         let data = "";
         const [keyName, authenticationId] = Object.entries(req.headers)[0];
         let authenticationResult = null;
-        if (keyName === "employeeid"){
-            authenticationResult = await model.employeeAuthenticator(authenticationId)
-        }
-        else{
-            authenticationResult = await model.customerAuthenticator(authenticationId)
+        if (keyName === "employeeid") {
+            authenticationResult = await model.employeeAuthenticator(
+                authenticationId
+            );
+        } else {
+            authenticationResult = await model.customerAuthenticator(
+                authenticationId
+            );
         }
         req.on("data", (jsonDatas) => {
             data += jsonDatas.toString();
         });
         req.on("end", async () => {
-            if(authenticationResult){
+            if (authenticationResult) {
                 const result = await model.createReplyTicket({
                     date: Date.now(),
                     ...JSON.parse(data),
                 });
                 if (result) {
-                sendResult(res, 201, {
-                    message: "reply sended successfully",
-                });
+                    sendResult(res, 201, {
+                        message: "reply sended successfully",
+                    });
+                } else {
+                    errorHandler(res, 502, "Bad Gateway");
+                }
             } else {
-                errorHandler(res, 502, "Bad Gateway");
-            }
-            }
-            else{
                 errorHandler(res, 401, "you are unauthorized");
             }
         });
@@ -82,8 +84,31 @@ async function sendReplyTicket(req, res) {
     }
 }
 
+async function closeTicket(req, res) {
+    try {
+        const employeeId = req.headers.employeeid;
+        const ticketId = req.headers.ticketid;
+        
+        const result = await model.employeeAuthenticator(employeeId);
+        if (result) {
+            const ticketIsChange = await model.closeTicket(ticketId)
+            if(ticketIsChange){
+                sendResult(res,201,{ message : 'ticket closed successfully'})
+            }
+            else{
+                errorHandler(res,412,"ticket-id is wrong")
+            }
+        } else {
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
 module.exports = {
     createTicket,
     getAllTickets,
     sendReplyTicket,
+    closeTicket,
 };

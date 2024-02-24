@@ -49,12 +49,26 @@ async function createReplyTicket(reply){
      });
 }
 
+async function closeTicket(ticketId){
+    const db = await new mongoDBconnection().getDBtunnel("Tickets");
+    let result = await db.updateOne(
+        { _id: new ObjectId(ticketId) },
+        {
+            $set: { isClose : true},
+        }
+    );
+    return new Promise((resolve, reject) => {
+        resolve(Boolean(result.modifiedCount));
+    });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
     customerAuthenticator,
     getAllTickets,
     createReplyTicket,
+    closeTicket
 };
 
 module.exports = model;
