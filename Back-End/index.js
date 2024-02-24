@@ -1,5 +1,5 @@
 const http = require("http");
-const { createTicket } = require("./controllers/tickets.controller");
+const { createTicket, getAllTickets } = require("./controllers/tickets.controller");
 const port = 3000;
 
 const server = http.createServer((req, res) => {
@@ -7,6 +7,9 @@ const server = http.createServer((req, res) => {
     const apiRoute = "/tickets";
     if(apiRoute === url && method === "POST"){
         createTicket(req,res)
+    }
+    else if(apiRoute === url && method === "GET"){
+        getAllTickets(req,res)
     }
 });
 

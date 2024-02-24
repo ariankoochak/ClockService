@@ -28,7 +28,25 @@ async function createTicket(req,res){
         }
 }
 
+async function getAllTickets(req, res) {
+    try {
+        const employeeId = req.headers.employeeid;
+        const result = await model.employeeAuthenticator(employeeId);
+        if(result){
+            const tickets = await model.getAllTickets();
+            sendResult(res,200,tickets)
+        }
+        else{
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
+
 
 module.exports = {
-    createTicket
+    createTicket,
+    getAllTickets
 }
