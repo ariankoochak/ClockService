@@ -4,7 +4,7 @@ const port = 3000;
 
 const server = http.createServer((req, res) => {
     const { url, method } = req;
-    const apiRoute = "/ticket";
+    const apiRoute = "/tickets";
     if(apiRoute === url && method === "POST"){
         createTicket(req,res)
     }
