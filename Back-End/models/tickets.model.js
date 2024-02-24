@@ -11,6 +11,9 @@ async function createTicket(ticket) {
 }
 
 async function employeeAuthenticator(id) {
+    if(id.length !== 24){
+        return false
+    }
     const db = await new mongoDBconnection().getDBtunnel("Employees");
     const result = await db.findOne({_id : new ObjectId(id)});
     return new Promise((resolve, reject) => {
