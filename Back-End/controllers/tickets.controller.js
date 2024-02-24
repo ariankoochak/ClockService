@@ -148,12 +148,38 @@ async function createFixingTicket(req, res) {
     }
 }
 
+async function getAllFixingTicket(req,res){
+    try {
+        const [keyName, authenticationId] = Object.entries(req.headers)[0];
+        let authenticationResult = null;
+        if (keyName === "employeeid") {
+            authenticationResult = await model.employeeAuthenticator(
+                authenticationId
+            );
+        } else {
+            authenticationResult = await model.repairmanAuthenticator(
+                authenticationId
+            );
+        }
+        if (authenticationResult) {
+            const fixingTicket = await model.getAllFixingTicket();
+            sendResult(res, 200, fixingTicket);
+        } else {
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
+
 const controller = {
     createTicket,
     getAllTickets,
     sendReplyTicket,
     closeTicket,
     createFixingTicket,
+    getAllFixingTicket,
 };
 
 module.exports = controller;
