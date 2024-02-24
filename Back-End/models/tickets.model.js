@@ -21,6 +21,17 @@ async function employeeAuthenticator(id) {
     });
 }
 
+async function customerAuthenticator(id) {
+    if (id.length !== 24) {
+        return false;
+    }
+    const db = await new mongoDBconnection().getDBtunnel("Customers");
+    const result = await db.findOne({ _id: new ObjectId(id) });
+    return new Promise((resolve, reject) => {
+        resolve(Boolean(result));
+    });
+}
+
 async function getAllTickets(){
     const db = await new mongoDBconnection().getDBtunnel("Tickets");
     const result = await db.find({}).toArray();
@@ -29,10 +40,21 @@ async function getAllTickets(){
     });
 }
 
+async function createReplyTicket(reply){
+    // console.log(reply);
+     const db = await new mongoDBconnection().getDBtunnel("Replies");
+     const result = await db.insertOne(reply);
+     return new Promise((resolve, reject) => {
+         resolve(result.acknowledged);
+     });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
+    customerAuthenticator,
     getAllTickets,
+    createReplyTicket,
 };
 
 module.exports = model;
