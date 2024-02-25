@@ -109,6 +109,39 @@ async function sendFixingResult(fixingTicketId,payload){
     });
 }
 
+async function authenticateClient(userName,password){
+    const db = await new mongoDBconnection().getDBtunnel("Customers");
+    const result = await db.findOne({
+        CustomerUserName: userName,
+        CustomerPassword : password,
+    });
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
+async function authenticateEmployee(userName, password) {
+    const db = await new mongoDBconnection().getDBtunnel("Employees");
+    const result = await db.findOne({
+        EmployeeUserName: userName,
+        EmployeePassword: password,
+    });
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
+async function authenticateRepairman(userName, password) {
+    const db = await new mongoDBconnection().getDBtunnel("Repairmans");
+    const result = await db.findOne({
+        EmployeeUserName: userName,
+        EmployeePassword: password,
+    });
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
@@ -120,7 +153,10 @@ const model = {
     createFixingTicket,
     getClientData,
     getAllFixingTicket,
-    sendFixingResult
+    sendFixingResult,
+    authenticateClient,
+    authenticateEmployee,
+    authenticateRepairman,
 };
 
 module.exports = model;

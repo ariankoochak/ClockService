@@ -1,5 +1,6 @@
 const http = require("http");
 const controller = require("./controllers/tickets.controller");
+const authenticateController = require("./controllers/authenticate.controller");
 
 const port = 3000;
 
@@ -20,6 +21,15 @@ const server = http.createServer((req, res) => {
         controller.getAllFixingTicket(req, res);
     } else if (`${apiRoute}/fixing/done` === url && method === "POST") {
         controller.sendFixingResult(req, res);
+    }
+    const loginRoute = "/login";
+    if (
+        (`${loginRoute}/client` === url ||
+            `${loginRoute}/operator` === url ||
+            `${loginRoute}/repairman` === url) &&
+        method === "GET"
+    ) {
+        authenticateController.authenticatingLogin(req, res);
     }
 });
 
