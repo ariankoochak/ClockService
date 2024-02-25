@@ -1,3 +1,187 @@
-body{
+/*-----------------------------fonts*/
+@font-face {
+    font-family: eicons;
+    src: url(../fonts/eicons.woff2);
+}
+
+@font-face {
+    font-family: fa-brands-400;
+    src: url(../fonts/fa-brands-400.woff2);
+}
+
+@font-face {
+    font-family: fa-light-300;
+    src: url(../fonts/fa-light-300.woff2);
+}
+
+@font-face {
+    font-family: fa-regular-400;
+    src: url(../fonts/fa-regular-400.woff2);
+}
+
+@font-face {
+    font-family: fa-solid-900;
+    src: url(../fonts/fa-solid-900.woff2);
+}
+
+@font-face {
+    font-family: yekan-bakh-regular;
+    src: url(../fonts/Yekan-Bakh-Fa-En-04-Regular.woff);
+}
+
+@font-face {
+    font-family: yekan-bakh-medium;
+    src: url(../fonts/Yekan-Bakh-Fa-En-05-Medium.woff);
+}
+
+@font-face {
+    font-family: yekan-bakh-bold;
+    src: url(../fonts/Yekan-Bakh-Fa-En-06-Bold.woff);
+}
+
+@font-face {
+    font-family: yekan-bakh-heavy;
+    src: url(../fonts/Yekan-Bakh-Fa-En-07-Heavy.woff);
+}
+
+@font-face {
+    font-family: yekan-bakh-fat;
+    src: url(../fonts/Yekan-Bakh-Fa-En-08-Fat.woff);
+}
+
+/*-----------------------------fonts*/
+
+body {
     background-color: #313540;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+input {
+    border: none;
+}
+
+input:focus{
+    outline: none;
+}
+
+button {
+    border: none;
+}
+
+.login-page-main-div {
+    border-radius: 50px;
+    background: #313540;
+    box-shadow: 14px 14px 28px #2a2d36, -14px -14px 28px #383d4a;
+    width: 400px;
+    height: 430px;
+    margin: 0 auto;
+    margin-top: calc(50vh - 200px);
+    font-family: yekan-bakh-regular;
+    color: #fffffd;
+}
+
+.login-page-main-div .header {
+    text-align: center;
+    padding-top: 30px;
+}
+
+.login-page-main-div .header h4 {
+    font-size: 25px;
+    margin-bottom: 40px;
+}
+
+.login-page-main-div .header span {
+    font-size: 16px;
+}
+
+.login-page-main-div .main-form input {
+    border-radius: 3px;
+    background: #313540;
+    box-shadow: inset 5px 5px 9px #2a2d36, inset -5px -5px 9px #383d4a;
+    font-size: 17px;
+    color: #fffffd;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 10px;
+    direction: rtl;
+    padding: 5px 10px;
+    font-family: yekan-bakh-regular;
+}
+
+.login-page-main-div .main-form button {
+    border-radius: 0px;
+    background: #313540;
+    box-shadow: 4px 4px 8px #2a2d36, -4px -4px 8px #383d4a;
+    width: 84%;
+    color: #fffffd;
+    font-family: yekan-bakh-regular;
+    padding: 5px 10px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.login-page-main-div .main-form button:active {
+    border-radius: 0px;
+    background: #313540;
+    box-shadow: inset 4px 4px 8px #2a2d36, inset -4px -4px 8px #383d4a;
+}
+
+.login-page-main-div .splitter{
+    margin: 0 auto;
+    width: 84%;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.login-page-main-div .splitter .line{
+    background-color: #474d5d;
+    width: 45%;
+    height: 3px;
+    border-radius: 100px;
+    display: inline-block;
+}
+
+.login-page-main-div .splitter span{
+    display: inline-block;
+    margin: 0 10px;
+    color: #666e84;
+    font-family: yekan-bakh-bold;
+}
+
+.login-page-main-div .options {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login-page-main-div .options button{
+     border-radius: 0px;
+    background: #313540;
+    box-shadow: 4px 4px 8px #2a2d36, -4px -4px 8px #383d4a;
+    width: 40%;
+    color: #fffffd;
+    font-family: yekan-bakh-regular;
+    padding: 5px 10px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.login-page-main-div .options button:active {
+    border-radius: 0px;
+    background: #313540;
+    box-shadow: inset 4px 4px 8px #2a2d36, inset -4px -4px 8px #383d4a;
+}
+
+.set-16-left-margin{
+    margin-left: 16px;
 }
