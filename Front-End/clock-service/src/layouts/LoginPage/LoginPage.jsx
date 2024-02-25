@@ -35,6 +35,7 @@ export default function LoginPage() {
   }
 
   const handleSubmitClick = ()=>{
+    //FIXME: fix cors error in node js
     const api = `${BACKEND_URL}/login/client`
     console.log(api);
     // axios.get(api)
