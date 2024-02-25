@@ -1,12 +1,14 @@
 const http = require("http");
 const controller = require("./controllers/tickets.controller");
 const authenticateController = require("./controllers/authenticate.controller");
+const { errorHandler } = require("./controllers/errors.controller");
 
 const port = 3000;
 
 const server = http.createServer((req, res) => {
     const { url, method } = req;
     const apiRoute = "/tickets";
+    const loginRoute = "/login";
     if (apiRoute === url && method === "POST") {
         controller.createTicket(req, res);
     } else if (apiRoute === url && method === "GET") {
@@ -21,15 +23,16 @@ const server = http.createServer((req, res) => {
         controller.getAllFixingTicket(req, res);
     } else if (`${apiRoute}/fixing/done` === url && method === "POST") {
         controller.sendFixingResult(req, res);
-    }
-    const loginRoute = "/login";
-    if (
+    } else if (
         (`${loginRoute}/client` === url ||
             `${loginRoute}/operator` === url ||
             `${loginRoute}/repairman` === url) &&
         method === "GET"
     ) {
         authenticateController.authenticatingLogin(req, res);
+    }
+    else{
+        errorHandler(res,404,'not found 404')
     }
 });
 

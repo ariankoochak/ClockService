@@ -1,8 +1,22 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 export default function LoginPage() {
+  const BACKEND_URL = "http://localhost:3000";
   let roles = ['مشتری','اپراتور','تعمیرکار']
   const [loginRole,setLoginRole] = useState('مشتری');
+  const [userName,setUserName] = useState('')
+  const [password, setPassword] = useState('');
+
+  const handleUserPassChanging = (e) => {
+    if( e.target.type === 'password'){
+      setPassword(e.target.value)
+    }
+    else{
+      setUserName(e.target.value)
+    }
+  };
+
   const generateOptionsButton = ()=>{
     roles = roles.filter((role)=>{
       return role !== loginRole
@@ -14,9 +28,28 @@ export default function LoginPage() {
         </>
     );
   }
+
   const handleClickNewLoginRole = (e)=>{
     const clickedRoleName = e.target.innerHTML.split(" ").pop();
     setLoginRole(clickedRoleName)
+  }
+
+  const handleSubmitClick = ()=>{
+    const api = `${BACKEND_URL}/login/client`
+    console.log(api);
+    // axios.get(api)
+    //     .then((res) => console.log(res.data));
+    const request = axios({
+        headers: {
+            "content-type": "application/json",
+            "username" : userName,
+            "password" : password
+        },
+        method: "get",
+        url: api,
+    })
+        .then((response) => response.data)
+        .catch((error) => error);
   }
   return (
     <div className="login-page-main-div">
@@ -25,9 +58,9 @@ export default function LoginPage() {
          <span>ورود به حساب کاربری {loginRole}</span>
         </div>
         <div className="main-form">
-          <input type="text" placeholder='نام کاربری'/>
-          <input type="text" placeholder='رمز عبور' />
-          <button>ورود</button>
+          <input type="text" placeholder='نام کاربری' value={userName} onChange={handleUserPassChanging}/>
+          <input type="password" placeholder='رمز عبور' value={password} onChange={handleUserPassChanging}/>
+          <button onClick={handleSubmitClick}>ورود</button>
         </div>
         <div className="splitter">
           <div className="line"></div>
