@@ -1,7 +1,13 @@
 import React from 'react'
 import ZeroTicket from '../ZeroTicket/ZeroTicket';
+import { useDispatch } from 'react-redux';
+import { createClientTicketModeOn } from '../../utils/store/slices/isCreateClientTicketMode';
 
 export default function ShowClientTicket() {
+    const dispatch = useDispatch()
+    const handleClickSubmitNewTicketBtn = ()=>{
+        dispatch(createClientTicketModeOn())
+    }
   return (
       <>
           <div className="header">
@@ -13,7 +19,7 @@ export default function ShowClientTicket() {
                   </p>
               </div>
               <div className="add-new-ticket-btn">
-                  <button>ثبت تیکت جدید</button>
+                  <button onClick={handleClickSubmitNewTicketBtn}>ثبت تیکت جدید</button>
               </div>
           </div>
           <div className="ticketsList">
