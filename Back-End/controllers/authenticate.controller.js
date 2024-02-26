@@ -6,7 +6,7 @@ async function authenticatingLogin(req, res) {
     try {
         const userName = req.headers.username;
         const password = req.headers.password;
-        const role = req.url.split('/')[2];
+        const role = req.params.role;
         let result = null
         switch(role){
             case 'client':

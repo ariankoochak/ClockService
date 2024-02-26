@@ -1,42 +1,35 @@
-const http = require("http");
+const express = require('express')
+const app = express()
+const port = 3000
 const controller = require("./controllers/tickets.controller");
 const authenticateController = require("./controllers/authenticate.controller");
-const { errorHandler } = require("./controllers/errors.controller");
+const { errorMiddleware } = require('./utils/errorMiddleware');
+const { notFoundMiddleware } = require('./utils/notFoundMiddleware');
+const cors = require("cors");
 
-const port = 3000;
+app.use(cors())
 
-const server = http.createServer((req, res) => {
-    const { url, method } = req;
-    const apiRoute = "/tickets";
-    const loginRoute = "/login";
-    if (apiRoute === url && method === "POST") {
-        controller.createTicket(req, res);
-    } else if (apiRoute === url && method === "GET") {
-        controller.getAllTickets(req, res);
-    } else if (`${apiRoute}/replies` === url && method === "POST") {
-        controller.sendReplyTicket(req, res);
-    } else if (`${apiRoute}/close` === url && method === "POST") {
-        controller.closeTicket(req, res);
-    } else if (`${apiRoute}/fixing` === url && method === "POST") {
-        controller.createFixingTicket(req, res);
-    } else if (`${apiRoute}/fixing` === url && method === "GET") {
-        controller.getAllFixingTicket(req, res);
-    } else if (`${apiRoute}/fixing/done` === url && method === "POST") {
-        controller.sendFixingResult(req, res);
-    } else if (
-        (`${loginRoute}/client` === url ||
-            `${loginRoute}/operator` === url ||
-            `${loginRoute}/repairman` === url) &&
-        method === "GET"
-    ) {
-        authenticateController.authenticatingLogin(req, res);
-    }
-    else{
-        errorHandler(res,404,'not found 404')
-    }
-});
+app.post("/tickets", controller.createTicket);
 
-server.listen(port, () => {
+app.get("/tickets",controller.getAllTickets);
+
+app.post("/tickets/replies",controller.sendReplyTicket);
+
+app.post("/tickets/close",controller.closeTicket);
+
+app.post("/tickets/fixing",controller.createFixingTicket);
+
+app.get("/tickets/fixing",controller.getAllFixingTicket);
+
+app.post("/tickets/fixing/done",controller.sendFixingResult);
+
+app.get("/login/:role", authenticateController.authenticatingLogin);
+
+app.use(notFoundMiddleware)
+
+app.use(errorMiddleware)
+
+app.listen(port,()=>{
     console.log("\nserver running!!..");
     console.log(`for start,send request to http://localhost:${port}\n`);
-});
+})
