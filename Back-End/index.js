@@ -6,8 +6,11 @@ const authenticateController = require("./controllers/authenticate.controller");
 const { errorMiddleware } = require('./utils/errorMiddleware');
 const { notFoundMiddleware } = require('./utils/notFoundMiddleware');
 const cors = require("cors");
+const morgan = require('morgan');
 
 app.use(cors())
+
+app.use(morgan('dev'))
 
 app.post("/tickets", controller.createTicket);
 
