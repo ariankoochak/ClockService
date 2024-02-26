@@ -4,24 +4,20 @@ const { sendResult } = require("./sendres.controller");
 
 async function createTicket(req, res) {
     try {
-        let data = "";
-        req.on("data", (jsonDatas) => {
-            data += jsonDatas.toString();
+        const data = req.body;
+        console.log(data);
+        const result = await model.createTicket({
+            date: Date.now(),
+            isClose: false,
+            ...data,
         });
-        req.on("end", async () => {
-            const result = await model.createTicket({
-                date: Date.now(),
-                isClose: false,
-                ...JSON.parse(data),
+        if (result) {
+            sendResult(res, 201, {
+                message: "ticket created successfully",
             });
-            if (result) {
-                sendResult(res, 201, {
-                    message: "ticket created successfully",
-                });
-            } else {
-                errorHandler(res, 502, "Bad Gateway");
-            }
-        });
+        } else {
+            errorHandler(res, 502, "Bad Gateway");
+        }
     } catch (error) {
         console.log(error);
         errorHandler(res, 500, "server error");
@@ -46,7 +42,7 @@ async function getAllTickets(req, res) {
 
 async function sendReplyTicket(req, res) {
     try {
-        let data = "";
+        const data = req.body;
         const [keyName, authenticationId] = Object.entries(req.headers)[0];
         let authenticationResult = null;
         if (keyName === "employeeid") {
@@ -58,26 +54,21 @@ async function sendReplyTicket(req, res) {
                 authenticationId
             );
         }
-        req.on("data", (jsonDatas) => {
-            data += jsonDatas.toString();
-        });
-        req.on("end", async () => {
-            if (authenticationResult) {
-                const result = await model.createReplyTicket({
-                    date: Date.now(),
-                    ...JSON.parse(data),
+        if (authenticationResult) {
+            const result = await model.createReplyTicket({
+                date: Date.now(),
+                ...data,
+            });
+            if (result) {
+                sendResult(res, 201, {
+                    message: "reply sended successfully",
                 });
-                if (result) {
-                    sendResult(res, 201, {
-                        message: "reply sended successfully",
-                    });
-                } else {
-                    errorHandler(res, 502, "Bad Gateway");
-                }
             } else {
-                errorHandler(res, 401, "you are unauthorized");
+                errorHandler(res, 502, "Bad Gateway");
             }
-        });
+        } else {
+            errorHandler(res, 401, "you are unauthorized");
+        }
     } catch (error) {
         console.log(error);
         errorHandler(res, 500, "server error");
@@ -111,35 +102,29 @@ async function createFixingTicket(req, res) {
         const employeeId = req.headers.employeeid;
         const result = await model.employeeAuthenticator(employeeId);
         if (result) {
-            let data = "";
-            req.on("data", (jsonDatas) => {
-                data += jsonDatas.toString();
+            const data = req.body;
+            const {
+                CustomerFirstName,
+                CustomerLastName,
+                PhoneNumber,
+                Address,
+            } = await model.getClientData(data.customerID);
+            const result = await model.createFixingTicket({
+                date: Date.now(),
+                isDone: false,
+                ...data,
+                clientFullName: `${CustomerFirstName} ${CustomerLastName}`,
+                clientAddress: Address,
+                clientPhoneNumber: PhoneNumber,
             });
-            req.on("end", async () => {
-                data = JSON.parse(data);
-                const {CustomerFirstName,
-                    CustomerLastName,
-                    PhoneNumber,
-                    Address,
-                } = await model.getClientData(data.customerID);;
-                const result = await model.createFixingTicket({
-                    date: Date.now(),
-                    isDone: false,
-                    ...data,
-                    clientFullName : `${CustomerFirstName} ${CustomerLastName}`,
-                    clientAddress: Address,
-                    clientPhoneNumber : PhoneNumber,
+            if (result) {
+                sendResult(res, 201, {
+                    message: "fixing-ticket created successfully",
                 });
-                if (result) {
-                    sendResult(res, 201, {
-                        message: "fixing-ticket created successfully",
-                    });
-                } else {
-                    errorHandler(res, 502, "Bad Gateway");
-                }
-            });
-        }
-        else{
+            } else {
+                errorHandler(res, 502, "Bad Gateway");
+            }
+        } else {
             errorHandler(res, 401, "you are unauthorized");
         }
     } catch (error) {
@@ -148,7 +133,7 @@ async function createFixingTicket(req, res) {
     }
 }
 
-async function getAllFixingTicket(req,res){
+async function getAllFixingTicket(req, res) {
     try {
         const [keyName, authenticationId] = Object.entries(req.headers)[0];
         let authenticationResult = null;
@@ -173,23 +158,22 @@ async function getAllFixingTicket(req,res){
     }
 }
 
-async function sendFixingResult(req,res){
+async function sendFixingResult(req, res) {
     try {
         const repairmanId = req.headers.repairmanid;
         const result = await model.repairmanAuthenticator(repairmanId);
-        if(result){
-            let data = "";
-            req.on("data", (jsonDatas) => {
-                data += jsonDatas.toString();
-            });
-            req.on("end", async () => {
+        if (result) {
+            const data = req.body;
                 data = JSON.parse(data);
-                const resultBody = data.resultBody
-                const result = await model.sendFixingResult(data.fixingTicketId,{
-                    finishDate: Date.now(),
-                    isDone: true,
-                    resultBody,
-                });
+                const resultBody = data.resultBody;
+                const result = await model.sendFixingResult(
+                    data.fixingTicketId,
+                    {
+                        finishDate: Date.now(),
+                        isDone: true,
+                        resultBody,
+                    }
+                );
                 if (result) {
                     sendResult(res, 201, {
                         message: "fixing result sent",
@@ -197,9 +181,7 @@ async function sendFixingResult(req,res){
                 } else {
                     errorHandler(res, 502, "Bad Gateway");
                 }
-            });
-        }
-        else{
+        } else {
             errorHandler(res, 401, "you are unauthorized");
         }
     } catch (error) {
