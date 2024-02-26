@@ -18,6 +18,8 @@ app.post("/tickets", controller.createTicket);
 
 app.get("/tickets",controller.getAllTickets);
 
+app.get("/tickets/customer", controller.getCustomerAllTickets);
+
 app.post("/tickets/replies",controller.sendReplyTicket);
 
 app.post("/tickets/close",controller.closeTicket);

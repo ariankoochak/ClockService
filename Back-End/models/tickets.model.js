@@ -50,6 +50,14 @@ async function getAllTickets() {
     });
 }
 
+async function getCustomerAllTickets(id) {
+    const db = await new mongoDBconnection().getDBtunnel("Tickets");
+    const result = await db.find({ customerID : id}).toArray();
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
 async function createReplyTicket(reply) {
     // console.log(reply);
     const db = await new mongoDBconnection().getDBtunnel("Replies");
@@ -157,6 +165,7 @@ const model = {
     authenticateClient,
     authenticateEmployee,
     authenticateRepairman,
+    getCustomerAllTickets,
 };
 
 module.exports = model;

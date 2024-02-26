@@ -190,6 +190,22 @@ async function sendFixingResult(req, res) {
     }
 }
 
+async function getCustomerAllTickets(req, res) {
+    try {
+        const customerId = req.headers.customerid;
+        const result = await model.customerAuthenticator(customerId);
+        if (result) {
+            const tickets = await model.getCustomerAllTickets(customerId);
+            sendResult(res, 200, tickets);
+        } else {
+            errorHandler(res, 401, "you are unauthorized");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
+
 const controller = {
     createTicket,
     getAllTickets,
@@ -198,6 +214,7 @@ const controller = {
     createFixingTicket,
     getAllFixingTicket,
     sendFixingResult,
+    getCustomerAllTickets,
 };
 
 module.exports = controller;
