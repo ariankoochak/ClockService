@@ -1,11 +1,46 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { createClientTicketModeOff } from '../../utils/store/slices/isCreateClientTicketMode';
+import axios from 'axios';
 
 export default function CreateClientTicket() {
+    const BACKEND_URL = "http://localhost:3000";
     const dispatch = useDispatch();
+    const [title,setTitle] = useState('')
+    const [body,setBody] = useState('')
+    const userData = useSelector((store) => store.userLogin.userLogin);
     const handleCancelFormClick = ()=>{
         dispatch(createClientTicketModeOff())
+    }
+
+    const handleChangeTitle = (e)=>{
+        setTitle(e.target.value)
+    }
+
+    const handleChangeBody = (e)=>{
+        setBody(e.target.value)
+    }
+
+    const handleClickSubmit = async ()=>{
+        const api = `${BACKEND_URL}/tickets`;
+        const payload = {
+            title: title,
+            body: body,
+            customerID : userData._id,
+        };
+        const requestResult = await axios({
+            headers: {
+                "content-type": "application/json",
+            },
+            data: payload,
+            method: "post",
+            url: api,
+        })
+            .then((response) => response)
+            .catch((error) => error.response);
+        if(requestResult.status === 201){
+            dispatch(createClientTicketModeOff())
+        }
     }
   return (
     <>
@@ -14,13 +49,13 @@ export default function CreateClientTicket() {
             <button onClick={handleCancelFormClick}>بازگشت</button>
         </div>
         <div className="title">
-            <input type="text" placeholder='عنوان تیکت'/>
+            <input type="text" placeholder='عنوان تیکت' value={title} onChange={handleChangeTitle}/>
         </div>
         <div className="body">
-            <textarea name="" id="" placeholder='متن تیکت'></textarea>
+            <textarea name="" id="" placeholder='متن تیکت' value={body} onChange={handleChangeBody}></textarea>
         </div>
         <div className="submit-btn">
-            <button>ارسال تیکت</button>
+            <button onClick={handleClickSubmit}>ارسال تیکت</button>
         </div>
     </div>
     </>
