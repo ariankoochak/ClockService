@@ -2,12 +2,14 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logining } from "../../utils/store/slices/userLogin";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
     const BACKEND_URL = "http://localhost:3000";
     let roles = ["مشتری", "اپراتور", "تعمیرکار"];
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [loginRole, setLoginRole] = useState("مشتری");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -80,7 +82,7 @@ export default function LoginPage() {
             dispatch(logining(requestResult));
             switch(role){
               case "client":
-                console.log("should go to clientPage");
+                navigate("/Client")
                 break;
               case "operator":
                 console.log("should go to operatorPage");

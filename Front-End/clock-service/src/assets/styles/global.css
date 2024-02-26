@@ -68,12 +68,24 @@ input {
     border: none;
 }
 
-input:focus{
+input:focus {
     outline: none;
 }
 
 button {
     border: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+textarea:focus-visible {
+    outline: none !important;
+    border: none !important;
+    border-style: none;
+    border-color: Transparent;
+    overflow: auto;
 }
 
 .login-page-main-div {
@@ -137,7 +149,7 @@ button {
     box-shadow: inset 4px 4px 8px #2a2d36, inset -4px -4px 8px #383d4a;
 }
 
-.login-page-main-div .main-form .wrong-password-alert{
+.login-page-main-div .main-form .wrong-password-alert {
     display: block;
     text-align: center;
     margin-top: 20px;
@@ -145,18 +157,18 @@ button {
     font-family: yekan-bakh-bold;
 }
 
-.login-page-main-div .main-form{
+.login-page-main-div .main-form {
     height: 180px;
 }
 
-.login-page-main-div .splitter{
+.login-page-main-div .splitter {
     margin: 0 auto;
     width: 84%;
     margin-top: 5px;
     text-align: center;
 }
 
-.login-page-main-div .splitter .line{
+.login-page-main-div .splitter .line {
     background-color: #474d5d;
     width: 45%;
     height: 3px;
@@ -164,7 +176,7 @@ button {
     display: inline-block;
 }
 
-.login-page-main-div .splitter span{
+.login-page-main-div .splitter span {
     display: inline-block;
     margin: 0 10px;
     color: #666e84;
@@ -176,8 +188,8 @@ button {
     text-align: center;
 }
 
-.login-page-main-div .options button{
-     border-radius: 0px;
+.login-page-main-div .options button {
+    border-radius: 0px;
     background: #313540;
     box-shadow: 4px 4px 8px #2a2d36, -4px -4px 8px #383d4a;
     width: 40%;
@@ -194,6 +206,150 @@ button {
     box-shadow: inset 4px 4px 8px #2a2d36, inset -4px -4px 8px #383d4a;
 }
 
-.set-16-left-margin{
+.set-16-left-margin {
     margin-left: 16px;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.container .main {
+    font-family: yekan-bakh-regular;
+    min-height: 700px;
+    margin-top: 100px;
+    border-radius: 25px;
+    background: #313540;
+    box-shadow: 11px 11px 22px #2a2d36, -11px -11px 22px #383d4a;
+}
+
+.container .main .header {
+    color: #fffffd;
+    padding: 30px;
+    direction: rtl;
+}
+
+.container .main .header .header-texts {
+    display: inline-block;
+    width: 50%;
+}
+
+.container .main .header .add-new-ticket-btn {
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+    float: left;
+}
+
+.container .main .add-new-ticket-btn button {
+    font-family: yekan-bakh-regular;
+    margin-left: 20px;
+    font-size: 20px;
+    border-radius: 205px;
+    background: #313540;
+    box-shadow: 9px 9px 17px #2a2d36, -9px -9px 17px #383d4a;
+    color: #fffffd;
+    padding: 10px 20px;
+}
+
+.container .main .add-new-ticket-btn button:active {
+    border-radius: 205px;
+    background: #313540;
+    box-shadow: inset 9px 9px 17px #2a2d36, inset -9px -9px 17px #383d4a;
+}
+
+.container .main .form {
+    padding: 30px;
+}
+
+.container .main .form .cancel-form button {
+    font-family: yekan-bakh-regular;
+    margin-left: 20px;
+    font-size: 20px;
+    border-radius: 205px;
+    background: #313540;
+    box-shadow: 9px 9px 17px #2a2d36, -9px -9px 17px #383d4a;
+    color: #fffffd;
+    padding: 10px 20px;
+}
+
+.container .main .form .cancel-form button:active {
+    border-radius: 205px;
+    background: #313540;
+    box-shadow: inset 9px 9px 17px #2a2d36, inset -9px -9px 17px #383d4a;
+}
+
+.container .main .form .title {
+    margin-top: 20px;
+}
+
+.container .main .form .title input {
+    direction: rtl;
+    font-family: yekan-bakh-regular;
+    padding: 10px;
+    padding-top: 15px;
+    color: #fffffd;
+    font-size: 20px;
+    width: 99%;
+    border-radius: 7px;
+    background: #313540;
+    box-shadow: inset 8px 8px 15px #2a2d36, inset -8px -8px 15px #383d4a;
+}
+.container .main .form .body {
+    margin-top: 20px;
+}
+.container .main .form .body textarea {
+    border-style: none;
+    border-color: Transparent;
+    overflow: auto;
+    outline: none;
+    border-radius: 7px;
+    background: #313540;
+    box-shadow: inset 8px 8px 15px #2a2d36, inset -8px -8px 15px #383d4a;
+    border-radius: 8px;
+    font-family: yekan-bakh-regular;
+    resize: none;
+    color: #fffffd;
+    direction: rtl;
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 99%;
+    min-width: 99%;
+    min-height: 200px;
+}
+
+.container .main .form .submit-btn {
+    text-align: center;
+}
+
+.container .main .form .submit-btn button {
+    font-family: yekan-bakh-bold;
+    color: #fffffd;
+    border-radius: 12px;
+    background: #313540;
+    box-shadow: 10px 10px 19px #2a2d36, -10px -10px 19px #383d4a;
+    width: 99%;
+    padding: 10px;
+    padding-top: 15px;
+    font-size: 20px;
+}
+
+.container .main .form .submit-btn button:active {
+    border-radius: 12px;
+    background: #313540;
+    box-shadow: inset 10px 10px 19px #2a2d36, inset -10px -10px 19px #383d4a;
+}
+
+.zero-ticket {
+    text-align: center;
+}
+
+.zero-ticket h2 {
+    color: #fffffd;
+}
+
+.zero-ticket img {
+    width: 50%;
 }
