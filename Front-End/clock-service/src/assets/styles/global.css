@@ -342,6 +342,47 @@ textarea:focus-visible {
     box-shadow: inset 10px 10px 19px #2a2d36, inset -10px -10px 19px #383d4a;
 }
 
+.container .main .ticketsList {
+    padding: 0 30px;
+}
+
+.container .main .ticketsList table {
+    text-align: center;
+    color: #fffffd;
+    margin: 0 auto;
+}
+
+.container .main .ticketsList table tr {
+    height: 50px;
+}
+
+.container .main .ticketsList table tr:first-child{
+    color: #cfcfcc;
+}
+
+.container .main .ticketsList table td{
+    border-radius: 12px;
+}
+
+.container .main .ticketsList table .item:hover {
+    cursor: pointer;
+    border-radius: 12px;
+    background: #313540;
+    box-shadow: 8px 8px 16px #2a2d36, -8px -8px 16px #383d4a;
+}
+
+.container .main .ticketsList table .item:active {
+    border-radius: 12px;
+    background: #313540;
+    box-shadow: inset 8px 8px 16px #2a2d36, inset -8px -8px 16px #383d4a;
+}
+
+.container .main .ticketsList table th {
+    width: 400px;
+
+    padding: 10px 0;
+}
+
 .zero-ticket {
     text-align: center;
 }
@@ -352,4 +393,12 @@ textarea:focus-visible {
 
 .zero-ticket img {
     width: 50%;
+}
+
+.red-color{
+    color: red;
+}
+
+.green-color{
+    color: green;
 }

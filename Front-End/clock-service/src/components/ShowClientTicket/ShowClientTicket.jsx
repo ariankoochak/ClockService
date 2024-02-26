@@ -1,12 +1,38 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ZeroTicket from '../ZeroTicket/ZeroTicket';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createClientTicketModeOn } from '../../utils/store/slices/isCreateClientTicketMode';
+import axios from 'axios';
+import ClientTicketsTable from '../ClientTicketsTable/ClientTicketsTable';
 
 export default function ShowClientTicket() {
-    const dispatch = useDispatch()
+    const BACKEND_URL = "http://localhost:3000";
+    const userData = useSelector((store) => store.userLogin.userLogin);
+    const dispatch = useDispatch();
+    const [tickets,setTickets] = useState([])
     const handleClickSubmitNewTicketBtn = ()=>{
         dispatch(createClientTicketModeOn())
+    }
+    useEffect(()=>{
+        const api = `${BACKEND_URL}/tickets/customer`;
+        axios({
+            headers: {
+                "content-type": "application/json",
+                customerID: userData._id,
+            },
+            method: "get",
+            url: api,
+        })
+            .then((response) => {
+                setTickets(() => {return [...response.data]});
+            })
+            .catch((error) => console.log(error.response));
+    },[userData._id])
+    const generateTicketList = ()=>{
+        if(tickets.length > 0){
+            return <ClientTicketsTable tickets={tickets}/>;
+        }
+        return <ZeroTicket />;
     }
   return (
       <>
@@ -23,7 +49,7 @@ export default function ShowClientTicket() {
               </div>
           </div>
           <div className="ticketsList">
-              <ZeroTicket />
+              {generateTicketList()}
           </div>
       </>
   );

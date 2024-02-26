@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function ClientPage() {
     const isCreateClientTicketMode = useSelector((state)=>state.isCreateClientTicketMode.isCreateClientTicketMode)
-    console.log(isCreateClientTicketMode);
     const generateMainClientPage = ()=>{
         if(isCreateClientTicketMode)
         return (
