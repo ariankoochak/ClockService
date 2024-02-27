@@ -30,6 +30,8 @@ app.get("/tickets/fixing",controller.getAllFixingTicket);
 
 app.post("/tickets/fixing/done",controller.sendFixingResult);
 
+app.get("/ticket/replies/all", controller.getTicketWithReplies);
+
 app.get("/login/:role", authenticateController.authenticatingLogin);
 
 app.use(notFoundMiddleware)

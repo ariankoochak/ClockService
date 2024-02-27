@@ -165,23 +165,20 @@ async function sendFixingResult(req, res) {
         const result = await model.repairmanAuthenticator(repairmanId);
         if (result) {
             const data = req.body;
-                data = JSON.parse(data);
-                const resultBody = data.resultBody;
-                const result = await model.sendFixingResult(
-                    data.fixingTicketId,
-                    {
-                        finishDate: Date.now(),
-                        isDone: true,
-                        resultBody,
-                    }
-                );
-                if (result) {
-                    sendResult(res, 201, {
-                        message: "fixing result sent",
-                    });
-                } else {
-                    errorHandler(res, 502, "Bad Gateway");
-                }
+            data = JSON.parse(data);
+            const resultBody = data.resultBody;
+            const result = await model.sendFixingResult(data.fixingTicketId, {
+                finishDate: Date.now(),
+                isDone: true,
+                resultBody,
+            });
+            if (result) {
+                sendResult(res, 201, {
+                    message: "fixing result sent",
+                });
+            } else {
+                errorHandler(res, 502, "Bad Gateway");
+            }
         } else {
             errorHandler(res, 401, "you are unauthorized");
         }
@@ -207,6 +204,24 @@ async function getCustomerAllTickets(req, res) {
     }
 }
 
+async function getTicketWithReplies(req, res) {
+    try {
+        const ticketId = req.headers.ticketid;
+        const mainTicket = await model.getTicketById(ticketId)
+        if(mainTicket){
+            const replies = await model.getAllTicketReplies(ticketId);
+            const data = [...mainTicket, ...replies];
+            console.log(data);
+            sendResult(res,200,data)
+        }
+        else{
+            errorHandler(res, 404, "ticket not found");
+        }
+    } catch (error) {
+        console.log(error);
+        errorHandler(res, 500, "server error");
+    }
+}
 const controller = {
     createTicket,
     getAllTickets,
@@ -216,6 +231,7 @@ const controller = {
     getAllFixingTicket,
     sendFixingResult,
     getCustomerAllTickets,
+    getTicketWithReplies,
 };
 
 module.exports = controller;
