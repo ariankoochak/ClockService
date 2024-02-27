@@ -43,7 +43,9 @@ async function getAllTickets(req, res) {
 async function sendReplyTicket(req, res) {
     try {
         const data = req.body;
-        const [keyName, authenticationId] = Object.entries(req.headers)[0];
+        const keyName = Object.keys(req.headers).find((key) => key === 'customerid' || key === 'employeeid');
+        const authenticationId = req.headers[keyName]
+        console.log(authenticationId);
         let authenticationResult = null;
         if (keyName === "employeeid") {
             authenticationResult = await model.employeeAuthenticator(
