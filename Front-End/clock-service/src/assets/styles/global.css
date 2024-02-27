@@ -88,6 +88,28 @@ textarea:focus-visible {
     overflow: auto;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 200px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #474d5d00;
+    border-radius: 200px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2a2d36;
+    border-radius: 200px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #474d5d;
+}
+
 .login-page-main-div {
     border-radius: 50px;
     background: #313540;
@@ -405,6 +427,21 @@ textarea:focus-visible {
     border-radius: 8px;
     width: 95%;
     height: 500px;
+    overflow-x: hidden;
+}
+
+.container .main .chat-page .chats-box .main-message {
+    padding: 30px;
+}
+
+.container .main .chat-page .chats-box .main-message .sender,
+.container .main .chat-page .chats-box .main-message .giver {
+    padding: 10px;
+    color: white;
+    display: inline-block;
+    border-radius: 16px;
+    background: #313540;
+    box-shadow: 14px 14px 27px #2a2d36, -14px -14px 27px #383d4a;
 }
 
 .container .main .chat-page .chat-input {
