@@ -38,8 +38,6 @@ export default function TicketChats() {
   };
 
   const handleSendMessageClick = ()=>{
-    // getRepliesFromServer();
-    console.log(userData._id);
     const api = `${BACKEND_URL}/tickets/replies`;
     axios({
         headers: {
@@ -54,7 +52,10 @@ export default function TicketChats() {
         url: api,
     })
         .then((response) => {
-            console.log(response);
+            if(response.status === 201){
+              setMessageInp('')
+              getRepliesFromServer();
+            }
         })
         .catch((error) => console.log(error.response));
   }
