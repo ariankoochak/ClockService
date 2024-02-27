@@ -70,6 +70,7 @@ export default function TicketChats() {
           </div>
 
           <div className="chats-box">
+            {/*//FIXME: add usememo for prevent rerendering this component*/}
             <ChatsRendering chats={chats}/>
           </div>
 
