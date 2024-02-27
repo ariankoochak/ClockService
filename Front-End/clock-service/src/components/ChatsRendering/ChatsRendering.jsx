@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React from "react";
 import getNormalHour from "../../services/getNormalHour";
 import { useSelector } from "react-redux";
 
 export default function ChatsRendering({ chats }) {
     const userData = useSelector((store) => store.userLogin.userLogin);
-    const chatsBoxRef = useRef()
     const isThisUserSentMessageFunc = (senderID) => {
         if (senderID === userData._id) {
             return true;
@@ -46,8 +45,7 @@ export default function ChatsRendering({ chats }) {
     };
     return (
         <>
-            
-                {renderChats()}
+            {renderChats()}
         </>
     );
 }
