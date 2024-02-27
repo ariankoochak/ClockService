@@ -442,6 +442,8 @@ textarea:focus-visible {
     border-radius: 16px;
     background: #313540;
     box-shadow: 14px 14px 27px #2a2d36, -14px -14px 27px #383d4a;
+    max-width: 40%;
+    min-width: 20%;
 }
 
 .container .main .chat-page .chat-input {
