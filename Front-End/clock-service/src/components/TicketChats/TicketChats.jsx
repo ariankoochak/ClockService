@@ -6,13 +6,20 @@ import ChatsRendering from '../ChatsRendering/ChatsRendering';
 
 export default function TicketChats() {
   const BACKEND_URL = "http://localhost:3000";
+  const userData = useSelector((store) => store.userLogin.userLogin);
   const ticketID = useSelector((state) => state.ticketChatMode.ticketId.payload);
   const [chats,setChats] = useState([])
+  const [messageInp,setMessageInp] = useState('')
   const dispatch = useDispatch()
+
+  const handleChangeMessageInput = (e)=>{
+    setMessageInp(e.target.value)
+  }
   const handleCancelFormClick = () => {
       dispatch(exitToTicketChatMode());
   };
-  useEffect(() => {
+
+  const getRepliesFromServer = () => {
       const api = `${BACKEND_URL}/ticket/replies/all`;
       axios({
           headers: {
@@ -28,7 +35,33 @@ export default function TicketChats() {
               });
           })
           .catch((error) => console.log(error.response));
-  }, [ticketID]);
+  };
+
+  const handleSendMessageClick = ()=>{
+    // getRepliesFromServer();
+    console.log(userData._id);
+    const api = `${BACKEND_URL}/tickets/replies`;
+    axios({
+        headers: {
+            "content-type": "application/json",
+            "customerID": userData._id,
+        },
+        data: {
+            body: messageInp,
+            ticketID: ticketID,
+        },
+        method: "post",
+        url: api,
+    })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => console.log(error.response));
+  }
+  useEffect(() => {
+      getRepliesFromServer();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
   return (
       <div className="chat-page">
           <div className="exit-chat">
@@ -41,10 +74,10 @@ export default function TicketChats() {
 
           <div className="chat-input">
               <div className="send-btn">
-                  <button>ارسال</button>
+                  <button onClick={handleSendMessageClick}>ارسال</button>
               </div>
               <div className="chat-inp">
-                  <input type="text" placeholder='متن پیام...'/>
+                  <input type="text" placeholder='متن پیام...' value={messageInp} onChange={handleChangeMessageInput}/>
               </div>
           </div>
       </div>
