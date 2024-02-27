@@ -58,6 +58,7 @@ async function sendReplyTicket(req, res) {
             const result = await model.createReplyTicket({
                 date: Date.now(),
                 ...data,
+                senderID: authenticationId,
             });
             if (result) {
                 sendResult(res, 201, {
