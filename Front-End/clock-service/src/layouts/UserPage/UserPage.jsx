@@ -1,30 +1,30 @@
 import React from "react";
-import ShowClientTicket from "../../components/ShowClientTicket/ShowClientTicket";
-import CreateClientTicket from "../../components/CreateClientTicket/CreateClientTicket";
+import ShowTickets from "../../components/ShowTickets/ShowTickets";
+import CreateTicket from "../../components/CreateTicket/CreateTicket";
 import { useSelector } from "react-redux";
-import ClientTicketChats from "../../components/ClientTicketChats/ClientTicketChats";
+import TicketChats from "../../components/TicketChats/TicketChats";
 
-export default function ClientPage() {
-    const isCreateClientTicketMode = useSelector(
-        (state) => state.isCreateClientTicketMode.isCreateClientTicketMode
+export default function UserPage() {
+    const isCreateTicketMode = useSelector(
+        (state) => state.isCreateTicketMode.isCreateTicketMode
     );
     const isTicketChatMode = useSelector(
         (state) => state.ticketChatMode.isTicketChatMode
     );
     const generateMainClientPage = () => {
         if (isTicketChatMode) {
-            return <ClientTicketChats />
+            return <TicketChats />
         } else {
-            if (isCreateClientTicketMode)
+            if (isCreateTicketMode)
                 return (
                     <>
-                        <CreateClientTicket />
+                        <CreateTicket />
                     </>
                 );
             else
                 return (
                     <>
-                        <ShowClientTicket />
+                        <ShowTickets />
                     </>
                 );
         }

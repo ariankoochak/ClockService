@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createClientTicketModeOff } from '../../utils/store/slices/isCreateClientTicketMode';
+import { createTicketModeOff } from '../../utils/store/slices/isCreateTicketMode';
 import axios from 'axios';
 
 export default function CreateClientTicket() {
@@ -10,7 +10,7 @@ export default function CreateClientTicket() {
     const [body,setBody] = useState('')
     const userData = useSelector((store) => store.userLogin.userLogin);
     const handleCancelFormClick = ()=>{
-        dispatch(createClientTicketModeOff())
+        dispatch(createTicketModeOff())
     }
 
     const handleChangeTitle = (e)=>{
@@ -39,7 +39,7 @@ export default function CreateClientTicket() {
             .then((response) => response)
             .catch((error) => error.response);
         if(requestResult.status === 201){
-            dispatch(createClientTicketModeOff())
+            dispatch(createTicketModeOff())
         }
     }
   return (

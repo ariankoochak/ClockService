@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import ZeroTicket from '../ZeroTicket/ZeroTicket';
 import { useDispatch, useSelector } from 'react-redux';
-import { createClientTicketModeOn } from '../../utils/store/slices/isCreateClientTicketMode';
+import { createTicketModeOn } from '../../utils/store/slices/isCreateTicketMode';
 import axios from 'axios';
-import ClientTicketsTable from '../ClientTicketsTable/ClientTicketsTable';
+import TicketsTable from '../TicketsTable/TicketsTable';
 
-export default function ShowClientTicket() {
+export default function ShowTickets() {
     const BACKEND_URL = "http://localhost:3000";
     const userData = useSelector((store) => store.userLogin.userLogin);
     const dispatch = useDispatch();
     const [tickets,setTickets] = useState([])
     const handleClickSubmitNewTicketBtn = ()=>{
-        dispatch(createClientTicketModeOn())
+        dispatch(createTicketModeOn())
     }
     useEffect(()=>{
         const api = `${BACKEND_URL}/tickets/customer`;
@@ -30,7 +30,7 @@ export default function ShowClientTicket() {
     },[userData._id])
     const generateTicketList = ()=>{
         if(tickets.length > 0){
-            return <ClientTicketsTable tickets={tickets}/>;
+            return <TicketsTable tickets={tickets}/>;
         }
         return <ZeroTicket />;
     }

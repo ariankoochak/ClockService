@@ -78,21 +78,8 @@ export default function LoginPage() {
         if (requestResult.status === 401) {
             setIsWrongLogin(true);
         } else {
-          //TODO: add path to this switch for go to page after login
-            dispatch(logining(requestResult));
-            switch(role){
-              case "client":
-                navigate("/Client")
-                break;
-              case "operator":
-                console.log("should go to operatorPage");
-                break;
-              case "repairman":
-                console.log('should go to repairmanPage');
-                break;
-                default:
-                  console.log('we have problem in loginPage.jsx');
-            }
+            dispatch(logining({...requestResult,role : role}));
+            navigate("/User")
         }
     };
     return (
