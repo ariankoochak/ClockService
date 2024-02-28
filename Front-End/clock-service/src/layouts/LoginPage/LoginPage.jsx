@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logining } from "../../utils/store/slices/userLogin";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +14,11 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isWrongLogin, setIsWrongLogin] = useState(false);
 
-    const handleUserPassChanging = (e) => {
-        if (e.target.type === "password") {
-            setPassword(e.target.value);
-        } else {
+    const handleUsernameChanging = (e) => {
             setUserName(e.target.value);
-        }
+    };
+    const handlePasswordChanging = (e) => {
+            setPassword(e.target.value);
     };
 
     const handleSubmitClick = async () => {
@@ -58,13 +57,13 @@ export default function LoginPage() {
                     type="text"
                     placeholder="نام کاربری"
                     value={userName}
-                    onChange={handleUserPassChanging}
+                    onChange={handleUsernameChanging}
                 />
                 <input
                     type={isShowPass ? "text" : "password"}
                     placeholder="رمز عبور"
                     value={password}
-                    onChange={handleUserPassChanging}
+                    onChange={handlePasswordChanging}
                 />
                 <i class={isShowPass ? "fa-light fa-eye-slash" : "fa-light fa-eye"} onClick={changeShowPassword}></i>
                 <button onClick={handleSubmitClick}>ورود</button>
