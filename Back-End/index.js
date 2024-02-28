@@ -7,6 +7,7 @@ const { errorMiddleware } = require('./utils/errorMiddleware');
 const { notFoundMiddleware } = require('./utils/notFoundMiddleware');
 const cors = require("cors");
 const morgan = require('morgan');
+const { roleRecognition } = require('./middlewares/roleRecognition.middleware');
 
 app.use(cors())
 
@@ -14,25 +15,20 @@ app.use(express.json())
 
 app.use(morgan('dev'))
 
+app.get("/login", authenticateController.authenticatingLogin);
+
+app.use(roleRecognition)
+
 app.post("/tickets", controller.createTicket);
 
 app.get("/tickets",controller.getAllTickets);
-
-app.get("/tickets/customer", controller.getCustomerAllTickets);
 
 app.post("/tickets/replies",controller.sendReplyTicket);
 
 app.post("/tickets/close",controller.closeTicket);
 
-app.post("/tickets/fixing",controller.createFixingTicket);
-
-app.get("/tickets/fixing",controller.getAllFixingTicket);
-
-app.post("/tickets/fixing/done",controller.sendFixingResult);
-
 app.get("/ticket/replies/all", controller.getTicketWithReplies);
 
-app.get("/login/:role", authenticateController.authenticatingLogin);
 
 app.use(notFoundMiddleware)
 
