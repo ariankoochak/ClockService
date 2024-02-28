@@ -90,7 +90,7 @@ async function closeTicket(req, res) {
     try {
         if (req.userRole === "operator") {
             const ticketIsChange = await model.closeTicket(
-                req.headers.ticketId
+                req.headers.ticketid
             );
             if (ticketIsChange) {
                 sendResult(res, 204, { message: "ticket closed successfully" });

@@ -64,6 +64,52 @@ export default function TicketChats() {
   const testScroll = () => {
       chatsBoxRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const handleClickCloseTicketBtn = ()=>{
+    console.log(ticketID);
+    const api = `${BACKEND_URL}/tickets/close`;
+    axios({
+        headers: {
+            "content-type": "application/json",
+            userid: userData._id,
+            ticketID: ticketID,
+        },
+        method: "post",
+        url: api,
+    })
+        .then((response) => {
+            if (response.status === 204) {
+                getRepliesFromServer();
+            }
+        })
+        .catch((error) => console.log(error.response));
+  }
+  const renderChatInp = ()=>{
+    if(chats[0]?.isClose){
+        return(<>
+            <div className="closed-ticket-alert">
+                <h3>این تیکت بسته شده است</h3>
+            </div>
+        </>)
+    }
+    else{
+        return (
+            <>
+                <div className="send-btn">
+                    <button onClick={handleSendMessageClick}>ارسال</button>
+                </div>
+                <div className="chat-inp">
+                    <input
+                        type="text"
+                        placeholder="متن پیام..."
+                        value={messageInp}
+                        onChange={handleChangeMessageInput}
+                    />
+                </div>
+            </>
+        );
+    }
+  }
   useEffect(() => {
       getRepliesFromServer();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -71,7 +117,17 @@ export default function TicketChats() {
   return (
       <div className="chat-page">
           <div className="exit-chat">
-              <button onClick={handleCancelFormClick}>بازگشت</button>
+              <div className="left-side">
+                  <button onClick={handleCancelFormClick}>بازگشت</button>
+              </div>
+              <div className="center-side">
+                  <h2>{chats[0]?.title}</h2>
+              </div>
+              <div className="right-side">
+                  {userData.role === "operator" && !(chats[0]?.isClose) &&(
+                      <button className="close-ticket-btn" onClick={handleClickCloseTicketBtn}>بستن تیکت</button>
+                  )}
+              </div>
           </div>
           <div className="chats-box">
               {/*//FIXME: add usememo for prevent rerendering this component*/}
@@ -80,17 +136,7 @@ export default function TicketChats() {
           </div>
           {testScroll()}
           <div className="chat-input">
-              <div className="send-btn">
-                  <button onClick={handleSendMessageClick}>ارسال</button>
-              </div>
-              <div className="chat-inp">
-                  <input
-                      type="text"
-                      placeholder="متن پیام..."
-                      value={messageInp}
-                      onChange={handleChangeMessageInput}
-                  />
-              </div>
+              {renderChatInp()}
           </div>
       </div>
   );
