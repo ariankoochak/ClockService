@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
     const BACKEND_URL = "http://localhost:3000";
-    let roles = ["مشتری", "اپراتور", "تعمیرکار"];
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [loginRole, setLoginRole] = useState("مشتری");
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isWrongLogin, setIsWrongLogin] = useState(false);
@@ -23,46 +21,8 @@ export default function LoginPage() {
         }
     };
 
-    const generateOptionsButton = () => {
-        roles = roles.filter((role) => {
-            return role !== loginRole;
-        });
-        return (
-            <>
-                <button onClick={handleClickNewLoginRole}>
-                    ورود {roles[0]}
-                </button>
-                <button
-                    className="set-16-left-margin"
-                    onClick={handleClickNewLoginRole}
-                >
-                    ورود {roles[1]}
-                </button>
-            </>
-        );
-    };
-
-    const handleClickNewLoginRole = (e) => {
-        const clickedRoleName = e.target.innerHTML.split(" ").pop();
-        setLoginRole(clickedRoleName);
-        setIsWrongLogin(false);
-    };
-
-    const persianRoleTranslator = (role) => {
-        switch (role) {
-            case "مشتری":
-                return "client";
-            case "اپراتور":
-                return "operator";
-            case "تعمیرکار":
-                return "repairman";
-            default:
-                return "client";
-        }
-    };
     const handleSubmitClick = async () => {
-      const role = persianRoleTranslator(loginRole)
-        const api = `${BACKEND_URL}/login/${role}`;
+        const api = `${BACKEND_URL}/login`;
         console.log(api);
         const requestResult = await axios({
             headers: {
@@ -78,7 +38,7 @@ export default function LoginPage() {
         if (requestResult.status === 401) {
             setIsWrongLogin(true);
         } else {
-            dispatch(logining({...requestResult,role : role}));
+            dispatch(logining({...requestResult}));
             navigate("/User")
         }
     };
@@ -86,7 +46,7 @@ export default function LoginPage() {
         <div className="login-page-main-div">
             <div className="header">
                 <h4>سامانه ی گزارش خرابی ساعت</h4>
-                <span>ورود به حساب کاربری {loginRole}</span>
+                <span>ورود به حساب کاربری</span>
             </div>
             <div className="main-form">
                 <input
@@ -108,12 +68,6 @@ export default function LoginPage() {
                     </span>
                 )}
             </div>
-            <div className="splitter">
-                <div className="line"></div>
-                <span>یا</span>
-                <div className="line"></div>
-            </div>
-            <div className="options">{generateOptionsButton()}</div>
         </div>
     );
 }

@@ -115,7 +115,7 @@ textarea:focus-visible {
     background: #313540;
     box-shadow: 14px 14px 28px #2a2d36, -14px -14px 28px #383d4a;
     width: 400px;
-    height: 430px;
+    height: 360px;
     margin: 0 auto;
     margin-top: calc(50vh - 200px);
     font-family: yekan-bakh-regular;
@@ -145,7 +145,7 @@ textarea:focus-visible {
     display: block;
     margin: 0 auto;
     width: 80%;
-    margin-top: 10px;
+    margin-top: 20px;
     direction: rtl;
     padding: 5px 10px;
     font-family: yekan-bakh-regular;
@@ -180,52 +180,7 @@ textarea:focus-visible {
 }
 
 .login-page-main-div .main-form {
-    height: 180px;
-}
-
-.login-page-main-div .splitter {
-    margin: 0 auto;
-    width: 84%;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.login-page-main-div .splitter .line {
-    background-color: #474d5d;
-    width: 45%;
-    height: 3px;
-    border-radius: 100px;
-    display: inline-block;
-}
-
-.login-page-main-div .splitter span {
-    display: inline-block;
-    margin: 0 10px;
-    color: #666e84;
-    font-family: yekan-bakh-bold;
-}
-
-.login-page-main-div .options {
-    margin: 0 auto;
-    text-align: center;
-}
-
-.login-page-main-div .options button {
-    border-radius: 0px;
-    background: #313540;
-    box-shadow: 4px 4px 8px #2a2d36, -4px -4px 8px #383d4a;
-    width: 40%;
-    color: #fffffd;
-    font-family: yekan-bakh-regular;
-    padding: 5px 10px;
-    margin-top: 20px;
-    font-size: 16px;
-}
-
-.login-page-main-div .options button:active {
-    border-radius: 0px;
-    background: #313540;
-    box-shadow: inset 4px 4px 8px #2a2d36, inset -4px -4px 8px #383d4a;
+    height: 100px;
 }
 
 .set-16-left-margin {
