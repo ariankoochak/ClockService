@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createTicketModeOn } from '../../utils/store/slices/isCreateTicketMode';
 import axios from 'axios';
 import TicketsTable from '../TicketsTable/TicketsTable';
+import { useNavigate } from 'react-router-dom';
+import { logouting } from '../../utils/store/slices/userLogin';
 
 export default function ShowTickets() {
     const BACKEND_URL = "http://localhost:3000";
     const userData = useSelector((store) => store.userLogin.userLogin);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [tickets,setTickets] = useState([])
     const handleClickSubmitNewTicketBtn = ()=>{
         dispatch(createTicketModeOn())
+    }
+    const handleLogOutClickBtn = ()=>{
+        dispatch(logouting());
+        navigate('/Login');
     }
     useEffect(()=>{
         const api = `${BACKEND_URL}/tickets`;
@@ -48,7 +55,7 @@ export default function ShowTickets() {
                   <button className='add-ticket'onClick={handleClickSubmitNewTicketBtn}>
                       ثبت تیکت جدید
                   </button>
-                  <button className='log-out'>
+                  <button className='log-out' onClick={handleLogOutClickBtn}>
                       <i class="fa-regular fa-power-off"></i>
                   </button>
               </div>
