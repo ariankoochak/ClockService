@@ -14,11 +14,11 @@ export default function ShowTickets() {
         dispatch(createTicketModeOn())
     }
     useEffect(()=>{
-        const api = `${BACKEND_URL}/tickets/customer`;
+        const api = `${BACKEND_URL}/tickets`;
         axios({
             headers: {
                 "content-type": "application/json",
-                customerID: userData._id,
+                userid: userData._id,
             },
             method: "get",
             url: api,
