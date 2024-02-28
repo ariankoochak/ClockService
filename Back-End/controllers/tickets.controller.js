@@ -67,7 +67,7 @@ async function sendReplyTicket(req, res) {
             const result = await model.createReplyTicket({
                 date: Date.now(),
                 ...data,
-                senderID: req.headers.userid,
+                senderId: req.headers.userid,
                 senderRole: req.userRole,
             });
             if (result) {
