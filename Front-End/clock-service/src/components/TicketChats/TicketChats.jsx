@@ -26,6 +26,7 @@ export default function TicketChats() {
           headers: {
               "content-type": "application/json",
               ticketID: ticketID,
+              userid : userData._id
           },
           method: "get",
           url: api,
@@ -43,7 +44,7 @@ export default function TicketChats() {
     axios({
         headers: {
             "content-type": "application/json",
-            "customerID": userData._id,
+            "userid": userData._id,
         },
         data: {
             body: messageInp,

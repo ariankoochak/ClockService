@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 
 export default function ChatsRendering({ chats }) {
     const userData = useSelector((store) => store.userLogin.userLogin);
-    const isThisUserSentMessageFunc = (senderID) => {
-        if (senderID === userData._id) {
+    const isThisUserSentMessageFunc = (senderId) => {
+        if (senderId === userData._id) {
             return true;
         }
         return false;
@@ -14,8 +14,7 @@ export default function ChatsRendering({ chats }) {
         chats = chats.sort();
         return chats.map((chat) => {
             const isThisUserSentMessage =
-                isThisUserSentMessageFunc(chat.customerID) ||
-                isThisUserSentMessageFunc(chat.senderID);
+                isThisUserSentMessageFunc(chat.senderId);
             return (
                 <>
                     <div
@@ -32,7 +31,7 @@ export default function ChatsRendering({ chats }) {
                         >
                             <span>
                                 {isThisUserSentMessage
-                                    ? `${userData.CustomerFirstName}`
+                                    ? `${userData.firstName}`
                                     : "پشتیبان"}
                             </span>
                             <p>{chat.body}</p>
