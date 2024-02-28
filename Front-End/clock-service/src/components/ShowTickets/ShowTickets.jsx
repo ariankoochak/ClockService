@@ -16,7 +16,7 @@ export default function ShowTickets() {
     const [ticketType, setTicketType] = useState("clientToOperator");
     const [tickets,setTickets] = useState([])
     const handleClickSubmitNewTicketBtn = ()=>{
-        dispatch(createTicketModeOn())
+        dispatch(createTicketModeOn());
     }
     const handleLogOutClickBtn = ()=>{
         dispatch(logouting());
@@ -76,14 +76,17 @@ export default function ShowTickets() {
   return (
       <>
           <div className="header">
-              <div className="header-texts">
-                {renderHeader()}
-              </div>
+              <div className="header-texts">{renderHeader()}</div>
               <div className="add-new-ticket-btn">
-                  <button className='add-ticket'onClick={handleClickSubmitNewTicketBtn}>
-                      ثبت تیکت جدید
-                  </button>
-                  <button className='log-out' onClick={handleLogOutClickBtn}>
+                  {userData.role !== "repairman" && (
+                      <button
+                          className="add-ticket"
+                          onClick={handleClickSubmitNewTicketBtn}
+                      >
+                          ثبت تیکت جدید
+                      </button>
+                  )}
+                  <button className="log-out" onClick={handleLogOutClickBtn}>
                       <i class="fa-regular fa-power-off"></i>
                   </button>
               </div>

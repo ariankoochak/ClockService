@@ -27,7 +27,7 @@ export default function ChatsRendering({ chats }) {
         return chats.map((chat) => {
             console.log(chat);
             const isThisUserSentMessage =
-                isThisUserSentMessageFunc(chat.senderID);
+                isThisUserSentMessageFunc(chat.senderId);
             return (
                 <>
                     <div
