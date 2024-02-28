@@ -33,6 +33,7 @@ async function createTicket(req, res) {
 async function getAllTickets(req, res) {
     try {
         if (req.userRole === "operator") {
+            //FIXME: add role for 2 type of ticket - client to operator and operator to repairman
             const tickets = await model.getAllTicketsBySenderId(
                 req.headers.userid
             );
