@@ -10,6 +10,18 @@ export default function ChatsRendering({ chats }) {
         }
         return false;
     };
+    const roleTranslatorToPersian = (role)=>{
+        switch(role){
+            case 'client':
+                return 'مشتری'
+            case 'operator':
+                return 'پشتیبان'
+            case 'repairman':
+                return 'تعمیرکار'
+            default : 
+                return 'معلوم نیست کیه'
+        }
+    }
     const renderChats = () => {
         chats = chats.sort();
         return chats.map((chat) => {
@@ -32,7 +44,7 @@ export default function ChatsRendering({ chats }) {
                             <span>
                                 {isThisUserSentMessage
                                     ? `${userData.firstName}`
-                                    : "پشتیبان"}
+                                    : `${roleTranslatorToPersian(chat.senderRole)}`}
                             </span>
                             <p>{chat.body}</p>
                             <span>{getNormalHour(chat.date)}</span>

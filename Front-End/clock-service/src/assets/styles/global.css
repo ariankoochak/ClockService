@@ -74,6 +74,7 @@ input:focus {
 
 button {
     border: none;
+    cursor: pointer;
 }
 
 img {
@@ -210,7 +211,28 @@ textarea:focus-visible {
 .container .main .header .header-texts {
     display: inline-block;
     width: 50%;
+    height: 50px;
 }
+
+.container .main .header .header-texts button{
+    font-family: yekan-bakh-regular;
+    margin-left: 20px;
+    font-size: 20px;
+    border-radius: 205px;
+    background: #313540;
+    box-shadow: 9px 9px 17px #2a2d36, -9px -9px 17px #383d4a;
+    color: #fffffd;
+    padding: 10px 20px;
+}
+
+.container .main .header-texts .selected-category {
+    border-radius: 205px !important;
+    background: #313540 !important;
+    box-shadow: inset 6px 6px 12px #2a2d36,
+            inset -6px -6px 12px #383d4a !important;
+    cursor: default !important;
+}
+
 
 .container .main .header .add-new-ticket-btn {
     display: inline-block;

@@ -12,6 +12,8 @@ export default function ShowTickets() {
     const userData = useSelector((store) => store.userLogin.userLogin);
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const [isTicketsCategoryClient,setIsTicketsCategoryClient] = useState(true);
+    const [ticketType, setTicketType] = useState("clientToOperator");
     const [tickets,setTickets] = useState([])
     const handleClickSubmitNewTicketBtn = ()=>{
         dispatch(createTicketModeOn())
@@ -22,34 +24,60 @@ export default function ShowTickets() {
     }
     useEffect(()=>{
         const api = `${BACKEND_URL}/tickets`;
+
         axios({
             headers: {
                 "content-type": "application/json",
                 userid: userData._id,
+                tickettype : ticketType,
             },
             method: "get",
             url: api,
         })
             .then((response) => {
-                setTickets(() => {return [...response.data]});
+                setTickets(() => {
+                    return [...response.data];
+                });
             })
             .catch((error) => console.log(error.response));
-    },[userData._id])
+    },[userData._id,ticketType])
     const generateTicketList = ()=>{
         if(tickets.length > 0){
             return <TicketsTable tickets={tickets}/>;
         }
         return <ZeroTicket />;
     }
+    const renderHeader = ()=>{
+        if(userData.role === 'client'){
+            
+        }
+        switch(userData.role){
+            case 'client':
+                return (
+                    <>
+                        <h2>پشتیبانی</h2>
+                        <p>
+                            راه ارتباطی اصلی شرکت ساعتی کاران با مشتریان سیستم
+                            تیکت می‌باشد.
+                        </p>
+                    </>
+                );
+            case 'operator':
+                return(<>
+                <button className={isTicketsCategoryClient ? 'selected-category' : ''} onClick={()=>{setIsTicketsCategoryClient(true);setTicketType("clientToOperator");}}>مشتریان</button>
+                <button className={isTicketsCategoryClient ? '' : 'selected-category'} onClick={()=>{setIsTicketsCategoryClient(false);setTicketType("operatorToRepairman");}}>تعمیرکاران</button>
+                </>)
+            case 'repairman':
+                return(<></>)
+            default :
+                handleLogOutClickBtn();
+        }
+    }
   return (
       <>
           <div className="header">
               <div className="header-texts">
-                  <h2>پشتیبانی</h2>
-                  <p>
-                      راه ارتباطی اصلی شرکت ساعتی کاران با مشتریان سیستم تیکت
-                      می‌باشد.
-                  </p>
+                {renderHeader()}
               </div>
               <div className="add-new-ticket-btn">
                   <button className='add-ticket'onClick={handleClickSubmitNewTicketBtn}>
