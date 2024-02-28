@@ -236,6 +236,16 @@ textarea:focus-visible {
     box-shadow: inset 9px 9px 17px #2a2d36, inset -9px -9px 17px #383d4a;
 }
 
+.container .main .header .add-new-ticket-btn .add-ticket{
+    padding: 15px 20px !important;
+    position: relative;
+    top: -3px;
+}
+
+.container .main .add-new-ticket-btn .log-out i{
+    margin-top: 10px;
+}
+
 .container .main .form {
     padding: 30px;
 }

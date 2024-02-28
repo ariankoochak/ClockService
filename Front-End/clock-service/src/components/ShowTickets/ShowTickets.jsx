@@ -45,12 +45,15 @@ export default function ShowTickets() {
                   </p>
               </div>
               <div className="add-new-ticket-btn">
-                  <button onClick={handleClickSubmitNewTicketBtn}>ثبت تیکت جدید</button>
+                  <button className='add-ticket'onClick={handleClickSubmitNewTicketBtn}>
+                      ثبت تیکت جدید
+                  </button>
+                  <button className='log-out'>
+                      <i class="fa-regular fa-power-off"></i>
+                  </button>
               </div>
           </div>
-          <div className="ticketsList">
-              {generateTicketList()}
-          </div>
+          <div className="ticketsList">{generateTicketList()}</div>
       </>
   );
 }
