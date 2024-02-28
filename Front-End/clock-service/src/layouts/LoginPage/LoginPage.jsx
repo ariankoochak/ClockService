@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { logining } from "../../utils/store/slices/userLogin";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ export default function LoginPage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isShowPass,setIsShowPass] = useState(false)
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [isWrongLogin, setIsWrongLogin] = useState(false);
@@ -42,6 +43,10 @@ export default function LoginPage() {
             navigate("/User")
         }
     };
+
+    const changeShowPassword = ()=>{
+        setIsShowPass(!isShowPass)
+    }
     return (
         <div className="login-page-main-div">
             <div className="header">
@@ -56,11 +61,12 @@ export default function LoginPage() {
                     onChange={handleUserPassChanging}
                 />
                 <input
-                    type="password"
+                    type={isShowPass ? "text" : "password"}
                     placeholder="رمز عبور"
                     value={password}
                     onChange={handleUserPassChanging}
                 />
+                <i class={isShowPass ? "fa-light fa-eye-slash" : "fa-light fa-eye"} onClick={changeShowPassword}></i>
                 <button onClick={handleSubmitClick}>ورود</button>
                 {isWrongLogin && (
                     <span className="wrong-password-alert">

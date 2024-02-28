@@ -184,6 +184,13 @@ textarea:focus-visible {
     height: 100px;
 }
 
+.login-page-main-div i{
+    position: relative;
+    top: -25px;
+    left: 40px;
+    cursor: pointer;
+}
+
 .set-16-left-margin {
     margin-left: 16px;
 }
