@@ -26,11 +26,11 @@ export default function CreateClientTicket() {
         const payload = {
             title: title,
             body: body,
-            customerID : userData._id,
         };
         const requestResult = await axios({
             headers: {
                 "content-type": "application/json",
+                userid: userData._id,
             },
             data: payload,
             method: "post",
