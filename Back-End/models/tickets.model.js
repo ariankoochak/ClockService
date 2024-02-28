@@ -165,6 +165,27 @@ async function getAllTicketReplies(ticketId){
     });
 }
 
+////////////////////////////////new models!
+
+async function userAuthenticationByUsernamePassword(username,password){
+    const db = await new mongoDBconnection().getDBtunnel("Users");
+    const result = await db.findOne({
+        username: username,
+        password: password,
+    });
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
+async function userAuthenticationById(id) {
+    const db = await new mongoDBconnection().getDBtunnel("Users");
+    const result = await db.findOne({_id : new ObjectId(id)});
+    return new Promise((resolve, reject) => {
+        resolve(result);
+    });
+}
+
 const model = {
     createTicket,
     employeeAuthenticator,
@@ -183,6 +204,8 @@ const model = {
     getCustomerAllTickets,
     getTicketById,
     getAllTicketReplies,
+    userAuthenticationById,
+    userAuthenticationByUsernamePassword,
 };
 
 module.exports = model;
