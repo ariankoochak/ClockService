@@ -1,0 +1,29 @@
+[
+    {
+        "role" : "repairman",
+        "firstName": "reza",
+        "lastName": "jafari",
+        "userName": "reza",
+        "password": "12345test",
+        "phoneNumber": "09129326953",
+        "address": "Tehran,15Avenue,94Plate"
+    },
+    {
+        "role" : "operator",
+        "firstName": "Seyed Navid",
+        "lastName": "zamzami",
+        "userName": "snz",
+        "password": "12345test",
+        "PhoneNumber": "09129876543",
+        "address": "Tehran,55Avenue,14Plate"
+    },
+    {
+        "role" : "client",
+        "firstName": "Arian",
+        "lastName": "Koochak",
+        "userName": "ariankoochak",
+        "password": "1234test",
+        "phoneNumber": "09121234567",
+        "address": "Tehran,35Avenue,54Plate"
+    }
+]
