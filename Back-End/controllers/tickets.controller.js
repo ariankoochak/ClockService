@@ -114,7 +114,6 @@ async function getTicketWithReplies(req, res) {
             if (mainTicket) {
                 const replies = await model.getAllTicketReplies(ticketId);
                 const data = [...mainTicket, ...replies];
-                console.log(data);
                 sendResult(res, 200, data);
             } else {
                 errorHandler(res, 404, "ticket not found");
