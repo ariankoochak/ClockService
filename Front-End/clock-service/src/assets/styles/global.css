@@ -184,7 +184,7 @@ textarea:focus-visible {
     height: 100px;
 }
 
-.login-page-main-div i{
+.login-page-main-div i {
     position: relative;
     top: -25px;
     left: 40px;
@@ -221,7 +221,7 @@ textarea:focus-visible {
     height: 50px;
 }
 
-.container .main .header .header-texts button{
+.container .main .header .header-texts button {
     font-family: yekan-bakh-regular;
     margin-left: 20px;
     font-size: 20px;
@@ -235,11 +235,9 @@ textarea:focus-visible {
 .container .main .header-texts .selected-category {
     border-radius: 205px !important;
     background: #313540 !important;
-    box-shadow: inset 6px 6px 12px #2a2d36,
-            inset -6px -6px 12px #383d4a !important;
+    box-shadow: inset 6px 6px 12px #2a2d36, inset -6px -6px 12px #383d4a !important;
     cursor: default !important;
 }
-
 
 .container .main .header .add-new-ticket-btn {
     display: inline-block;
@@ -265,13 +263,13 @@ textarea:focus-visible {
     box-shadow: inset 9px 9px 17px #2a2d36, inset -9px -9px 17px #383d4a;
 }
 
-.container .main .header .add-new-ticket-btn .add-ticket{
+.container .main .header .add-new-ticket-btn .add-ticket {
     padding: 15px 20px !important;
     position: relative;
     top: -3px;
 }
 
-.container .main .add-new-ticket-btn .log-out i{
+.container .main .add-new-ticket-btn .log-out i {
     margin-top: 10px;
 }
 
@@ -402,7 +400,7 @@ textarea:focus-visible {
     padding: 30px;
 }
 
-.container .main .chat-page .exit-chat{
+.container .main .chat-page .exit-chat {
     text-align: center;
 }
 
@@ -413,12 +411,12 @@ textarea:focus-visible {
     height: 50px;
     width: 33%;
 }
-.container .main .chat-page .exit-chat .left-side{
+.container .main .chat-page .exit-chat .left-side {
     /* background-color: red; */
     text-align: left;
 }
 
-.container .main .chat-page .exit-chat .center-side{
+.container .main .chat-page .exit-chat .center-side {
     /* background-color: blue; */
     position: relative;
     top: -6px;
@@ -432,7 +430,7 @@ textarea:focus-visible {
     text-align: right;
 }
 
-.container .main .chat-page .exit-chat .right-side button{
+.container .main .chat-page .exit-chat .right-side button {
     color: red !important;
     margin-right: 25px;
 }
@@ -471,7 +469,7 @@ textarea:focus-visible {
     display: inline-block;
     border-radius: 16px;
     background: #313540;
-    box-shadow: 14px 14px 27px #2a2d36, -14px -14px 27px #383d4a;
+    box-shadow: 6px 6px 12px #2a2d36, -6px -6px 12px #383d4a;
     max-width: 40%;
     min-width: 20%;
 }
@@ -481,7 +479,7 @@ textarea:focus-visible {
     margin: 0 auto;
 }
 
-.container .main .chat-page .chat-input .closed-ticket-alert{
+.container .main .chat-page .chat-input .closed-ticket-alert {
     color: #fffffd;
     height: 31px;
     padding: 10px;
@@ -492,7 +490,7 @@ textarea:focus-visible {
     box-shadow: inset 7px 7px 13px #2a2d36, inset -7px -7px 13px #383d4a;
 }
 
-.container .main .chat-page .chat-input .closed-ticket-alert h3{
+.container .main .chat-page .chat-input .closed-ticket-alert h3 {
     position: relative;
     top: 3px;
 }
