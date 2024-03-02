@@ -96,7 +96,6 @@ const model = {
     getAllTicketsBySenderRole,
     createReplyTicket,
     closeTicket,
-    getClientData,
     getTicketById,
     getAllTicketReplies,
     userAuthenticationById,
