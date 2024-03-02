@@ -31,13 +31,13 @@ async function closeTicket(ticketId) {
     });
 }
 
-async function getClientData(id) {
-    const db = await new mongoDBconnection().getDBtunnel("Customers");
-    const result = await db.findOne({ _id: new ObjectId(id) });
-    return new Promise((resolve, reject) => {
-        resolve(result);
-    });
-}
+// async function getClientData(id) {
+//     const db = await new mongoDBconnection().getDBtunnel("Customers");
+//     const result = await db.findOne({ _id: new ObjectId(id) });
+//     return new Promise((resolve, reject) => {
+//         resolve(result);
+//     });
+// }
 
 
 async function userAuthenticationByUsernamePassword(username,password){
